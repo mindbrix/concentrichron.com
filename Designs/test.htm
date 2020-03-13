@@ -578,12 +578,16 @@
 <script type="text/javascript">
     function showTime() {
         var d = new Date();
-        var rseconds = (d.getSeconds() + (d.getMilliseconds() / 1000.0)) / 60.0 * -360.0;
+        var fseconds = d.getSeconds() + (d.getMilliseconds() / 1000.0);
+        var fminutes = d.getMinutes() + fseconds / 60.0;
+        var fhours = d.getHours() + fminutes / 60.0;
         var ryear = (d.getFullYear() - 2020) / 10.0 * -360.0;
         document.getElementById('years').setAttribute("transform", "rotate(" + ryear + ",400,300)");
-        document.getElementById('seconds').setAttribute("transform", "rotate(" + rseconds + ",400,300)");
+        document.getElementById('seconds').setAttribute("transform", "rotate(" + fseconds / 60.0 * -360.0 + ",400,300)");
+        document.getElementById('minutes').setAttribute("transform", "rotate(" + fminutes / 60.0 * -360.0 + ",400,300)");
+        document.getElementById('hours').setAttribute("transform", "rotate(" + fhours / 24.0 * -360.0 + ",400,300)");
     }
-                                          setInterval(showTime, 32);
+    setInterval(showTime, 32);
 </script>
 
 </body>
