@@ -1,6 +1,10 @@
 <html>
     <head>
+        <title>Concentrichron: a clock and calendar made of concentric rings</title>
         <meta charset="utf-8">
+        <style type="text/css">
+            svg { position:fixed; top:5%; left:5%; height:90%; width:90% }
+        </style>
     </head>
     <body>
 <svg width="600px" height="600px" viewBox="0 0 600 600" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -13,7 +17,7 @@
         <path d="M609.75,300 C609.75,184.1583 515.8417,90.25 400,90.25 C284.1583,90.25 190.25,184.1583 190.25,300 C190.25,415.8417 284.1583,509.75 400,509.75 C515.8417,509.75 609.75,415.8417 609.75,300" id="Stroke-6" stroke="#F5F5F5" stroke-width="20"></path>
         <path d="M589.75,300 C589.75,195.204 504.796,110.25 400,110.25 C295.2039,110.25 210.25,195.204 210.25,300 C210.25,404.7961 295.2039,489.75 400,489.75 C504.796,489.75 589.75,404.7961 589.75,300" id="Stroke-7" stroke="#FAFAFA" stroke-width="20"></path>
         <path d="M569.75,300 C569.75,206.2497 493.7503,130.25 400,130.25 C306.2496,130.25 230.25,206.2497 230.25,300 C230.25,393.7503 306.2496,469.75 400,469.75 C493.7503,469.75 569.75,393.7503 569.75,300" id="Stroke-8" stroke="#F5F5F5" stroke-width="20"></path>
-        <g id="years" transform="rotate(90,400,300)">
+        <g id="years">
         <path d="M699.75,300 C699.75,134.4526 565.5473,0.25 400,0.25 C234.4527,0.25 100.25,134.4526 100.25,300 C100.25,465.5473 234.4527,599.75 400,599.75 C565.5473,599.75 699.75,465.5473 699.75,300" id="Stroke-1" stroke="#000000" stroke-width="0.5"></path>
         <path d="M679.75,300 C679.75,145.4984 554.5016,20.25 400,20.25 C245.4984,20.25 120.25,145.4984 120.25,300 C120.25,454.5016 245.4984,579.75 400,579.75 C554.5016,579.75 679.75,454.5016 679.75,300" id="Stroke-3" stroke="#000000" stroke-width="0.5"></path>
         <path d="M399.999974,20.25 L399.999974,10.25 M235.567074,73.6775 L229.689174,65.5873 M133.941874,213.5526 L124.431274,210.4624 M133.941874,386.4475 L124.431374,389.5377 M235.567074,526.32254 L229.689274,534.4127 M399.999974,579.75 L399.999974,589.75 M564.432974,526.32246 L570.310874,534.41263 M666.058074,386.4475 L675.568574,389.5377 M666.057974,213.5524 L675.568574,210.4622 M564.432774,73.6774 L570.310674,65.5872" id="Stroke-4" stroke="#000000" stroke-width="0.5"></path>
@@ -587,7 +591,7 @@
         var year = d.getFullYear();
         var isLeapYear = year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
         var monthdays = [ 31, isLeapYear ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
-        var fseconds = d.getSeconds() + (d.getMilliseconds() / 1000.0);
+        var fseconds = d.getSeconds() + d.getMilliseconds() / 1000.0;
         var fminutes = d.getMinutes() + fseconds / 60.0;
         var fhours = d.getHours() + fminutes / 60.0;
         var fday = d.getDay() + fhours / 24.0;
@@ -601,7 +605,6 @@
         document.getElementById('date').setAttribute("transform", "rotate(" + fdate / 31.0 * -360.0 + ", 400,300)");
         document.getElementById('months').setAttribute("transform", "rotate(" + fmonth / 12.0 * -360.0 + ", 400,300)");
         document.getElementById('years').setAttribute("transform", "rotate(" + fyear / 10.0 * -360.0 + ", 400,300)");
-                                                       
     }
     setInterval(showTime, 32);
 </script>
