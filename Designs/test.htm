@@ -584,12 +584,15 @@
 <script type="text/javascript">
     function showTime() {
         var d = new Date();
+        var year = d.getFullYear();
+        var isLeapYear = year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
+        var monthdays = [ 31, isLeapYear ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
         var fseconds = d.getSeconds() + (d.getMilliseconds() / 1000.0);
         var fminutes = d.getMinutes() + fseconds / 60.0;
         var fhours = d.getHours() + fminutes / 60.0;
         var fday = d.getDay() + fhours / 24.0;
         var fdate = (d.getDate() - 1.0) + fhours / 24.0;
-        var fmonth = d.getMonth() + fdate / 31.0;
+        var fmonth = d.getMonth() + fdate / monthdays[d.getMonth()];
         var fyear = (d.getFullYear() - 2020) + fmonth / 12.0;
         document.getElementById('seconds').setAttribute("transform", "rotate(" + fseconds / 60.0 * -360.0 + ", 400,300)");
         document.getElementById('minutes').setAttribute("transform", "rotate(" + fminutes / 60.0 * -360.0 + ", 400,300)");
